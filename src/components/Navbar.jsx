@@ -60,7 +60,7 @@ const Navbar = () => {
                 )}
               >
                 <span className="relative z-10">{link.name}</span>
-                <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-secondary transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute bottom-0 left-0 w-0 h-px bg-secondary transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </div>

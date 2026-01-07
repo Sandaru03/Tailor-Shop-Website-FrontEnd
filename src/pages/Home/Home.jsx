@@ -79,7 +79,7 @@ const Home = () => {
             pagination={{ 
               clickable: true,
               renderBullet: function (index, className) {
-                return '<span class="' + className + ' relative overflow-hidden"><span class="absolute inset-0 bg-secondary transform -translate-x-full transition-transform duration-[6000ms] ease-linear w-full h-full"></span></span>';
+                return '<span class="' + className + ' relative overflow-hidden"><span class="absolute inset-0 bg-secondary transform -translate-x-full transition-transform duration-6000 ease-linear w-full h-full"></span></span>';
               }
             }}
             navigation={{
@@ -91,11 +91,11 @@ const Home = () => {
             {slides.map((slide) => (
               <SwiperSlide key={slide.id} className="relative h-full w-full">
                 <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-[10000ms] ease-out"
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-10000 ease-out"
                   style={{ backgroundImage: `url(${slide.image})` }}
                   data-swiper-parallax="-20%"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent" />
                 </div>
                 
                 <div className="relative h-full container mx-auto px-6 md:px-12 flex flex-col justify-center items-start text-white z-10">
@@ -106,7 +106,7 @@ const Home = () => {
                       transition={{ duration: 0.8, delay: 0.2 }}
                     >
                       <div className="flex items-center gap-4 mb-6">
-                        <span className="h-[1px] w-12 bg-secondary"></span>
+                        <span className="h-px w-12 bg-secondary"></span>
                         <h2 className="text-sm md:text-base font-medium tracking-[0.2em] uppercase text-secondary" data-swiper-parallax="-100">
                           Est. 2024 • London
                         </h2>
@@ -141,7 +141,7 @@ const Home = () => {
             ))}
 
             {/* Custom Navigation */}
-            <div className="absolute bottom-12 right-12 z-20 flex gap-4 hidden md:flex">
+            <div className="absolute bottom-12 right-12 z-20 gap-4 hidden md:flex">
               <button className="swiper-button-prev-custom w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 backdrop-blur-sm">
                 <ChevronLeft size={24} />
               </button>
@@ -182,7 +182,7 @@ const Home = () => {
                         transition={{ duration: 0.8 }}
                         className="w-full lg:w-1/2 relative"
                     >
-                        <div className="relative rounded-2xl overflow-hidden aspect-[4/5]">
+                        <div className="relative rounded-2xl overflow-hidden aspect-4/5">
                             <img
                                 src="https://images.unsplash.com/photo-1598556776374-2274945f95d3?q=80&w=2070&auto=format&fit=crop"
                                 alt="Tailor working on fabric"
@@ -223,7 +223,7 @@ const Home = () => {
                                 'Timeless designs with a modern twist'
                             ].map((item, index) => (
                                 <div key={index} className="flex items-center gap-3">
-                                    <CheckCircle className="text-secondary flex-shrink-0" size={20} />
+                                    <CheckCircle className="text-secondary shrink-0" size={20} />
                                     <span className="text-gray-700 font-medium">{item}</span>
                                 </div>
                             ))}
@@ -300,7 +300,7 @@ const Home = () => {
                   <h3 className="text-xl font-serif font-bold mb-4 group-hover:text-secondary transition-colors duration-300">{service.title}</h3>
                   <p className="text-gray-500 leading-relaxed mb-6">{service.description}</p>
                   
-                  <div className="w-full h-[1px] bg-gray-100 group-hover:bg-secondary/30 transition-colors duration-500"></div>
+                  <div className="w-full h-px bg-gray-100 group-hover:bg-secondary/30 transition-colors duration-500"></div>
                 </motion.div>
               ))}
             </div>
