@@ -1,40 +1,44 @@
 import { Link } from 'react-router-dom';
-import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin, ArrowRight } from 'lucide-react';
+import { Facebook, Instagram, Twitter, Linkedin, ArrowRight } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer className="bg-primary text-white pt-20 pb-10 overflow-hidden relative">
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+    <footer className="bg-black text-white pt-24 pb-12 border-t border-[#C5A059]">
+      <div className="container mx-auto px-6 md:px-12">
+        
+        {/* Top Grid - Structural Layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20 border-b border-white/10 pb-20">
           
-          {/* Brand Column */}
-          <div className="space-y-6">
-            <Link to="/" className="text-3xl font-serif font-bold tracking-tighter block">
-              TAILOR<span className="text-secondary">.</span>
-            </Link>
-            <p className="text-gray-400 leading-relaxed max-w-xs">
-              Crafting bespoke elegance for the modern individual. Where tradition meets contemporary style.
-            </p>
-            <div className="flex space-x-4">
+          {/* Brand Column (Span 4) */}
+          <div className="lg:col-span-4 flex flex-col justify-between h-full">
+            <div>
+              <Link to="/" className="text-3xl md:text-4xl font-[Playfair_Display] font-bold tracking-tighter block mb-6">
+                TAILOR<span className="text-[#C5A059]">.</span>
+              </Link>
+              <p className="text-gray-400 font-[Montserrat] text-sm leading-relaxed max-w-xs font-light">
+                Crafting bespoke elegance for the modern individual. Located in Colombo 07, where heritage meets avant-garde style.
+              </p>
+            </div>
+            <div className="flex gap-6 mt-8">
               {[Facebook, Instagram, Twitter, Linkedin].map((Icon, index) => (
                 <a 
                   key={index} 
                   href="#" 
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-secondary hover:text-white transition-all duration-300"
+                  className="text-white hover:text-[#C5A059] transition-colors duration-300"
                 >
-                  <Icon size={18} />
+                  <Icon size={20} strokeWidth={1} />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-serif font-bold mb-6">Quick Links</h4>
-            <ul className="space-y-4">
-              {['Home', 'About Us', 'Services', 'Collections', 'Contact'].map((item) => (
+          {/* Links Column (Span 2) */}
+          <div className="lg:col-span-2">
+            <h4 className="text-xs font-[Montserrat] font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-8">Menu</h4>
+            <ul className="space-y-4 font-[Montserrat] text-sm">
+              {['Home', 'Collections', 'Bespoke', 'Journal', 'Contact'].map((item) => (
                 <li key={item}>
-                  <Link to="#" className="text-gray-400 hover:text-secondary transition-colors inline-block transform hover:translate-x-1 duration-300">
+                  <Link to="#" className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 block">
                     {item}
                   </Link>
                 </li>
@@ -42,13 +46,13 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="text-lg font-serif font-bold mb-6">Services</h4>
-            <ul className="space-y-4">
-              {['Bespoke Suits', 'Custom Shirts', 'Alterations', 'Wedding Attire', 'Styling'].map((item) => (
+          {/* Services Column (Span 2) */}
+          <div className="lg:col-span-2">
+            <h4 className="text-xs font-[Montserrat] font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-8">Services</h4>
+            <ul className="space-y-4 font-[Montserrat] text-sm">
+              {['Made to Measure', 'Alterations', 'Wedding', 'Fabrics', 'Styling'].map((item) => (
                 <li key={item}>
-                  <Link to="#" className="text-gray-400 hover:text-secondary transition-colors inline-block transform hover:translate-x-1 duration-300">
+                  <Link to="#" className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 block">
                     {item}
                   </Link>
                 </li>
@@ -56,33 +60,39 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-lg font-serif font-bold mb-6">Newsletter</h4>
-            <p className="text-gray-400 mb-6">Subscribe to receive updates, access to exclusive deals, and more.</p>
-            <form className="relative">
+          {/* Newsletter Column (Span 4) */}
+          <div className="lg:col-span-4">
+            <h4 className="text-xs font-[Montserrat] font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-8">Newsletter</h4>
+            <p className="text-gray-400 font-[Montserrat] text-sm mb-8 font-light">
+              Subscribe for exclusive access to new fabric arrivals and private events.
+            </p>
+            
+            {/* Minimalist Input Form */}
+            <form className="group relative">
               <input 
                 type="email" 
-                placeholder="Enter your email" 
-                className="w-full bg-white/5 border border-white/10 rounded-full py-3 px-6 text-white placeholder-gray-500 focus:outline-none focus:border-secondary transition-colors"
+                placeholder="EMAIL ADDRESS" 
+                className="w-full bg-transparent border-b border-white/30 py-4 text-white placeholder-gray-600 focus:outline-none focus:border-[#C5A059] transition-colors font-[Montserrat] text-sm tracking-wide rounded-none"
               />
               <button 
                 type="submit" 
-                className="absolute right-1 top-1 w-10 h-10 bg-secondary rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300"
+                className="absolute right-0 top-3 text-white hover:text-[#C5A059] transition-colors duration-300"
               >
-                <ArrowRight size={18} />
+                <span className="text-xs font-bold uppercase tracking-widest mr-2">Subscribe</span>
               </button>
             </form>
           </div>
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
-            &copy; {new Date().getFullYear()} Tailor Shop. All rights reserved.
+        {/* Bottom Bar */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 font-[Montserrat] text-xs text-gray-600 uppercase tracking-widest">
+          <p>
+            &copy; {new Date().getFullYear()} Tailor Shop.
           </p>
-          <div className="flex space-x-6 text-sm text-gray-500">
-            <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
+          <div className="flex space-x-8">
+            <Link to="#" className="hover:text-white transition-colors">Privacy</Link>
+            <Link to="#" className="hover:text-white transition-colors">Terms</Link>
+            <Link to="#" className="hover:text-white transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>

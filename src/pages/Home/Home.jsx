@@ -1,11 +1,9 @@
-
+import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Navigation, Pagination, Parallax } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { 
-  ArrowRight, ChevronRight, ChevronLeft, 
-  CheckCircle, 
-  Scissors, Ruler, Shirt, Watch, ArrowUpRight 
+  ArrowRight, Scissors, Ruler, Shirt, Crown, Star 
 } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
@@ -16,296 +14,326 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
+// --- DATA ---
 const slides = [
   {
     id: 1,
-    image: 'https://images.unsplash.com/photo-1593030761757-71bd90dbe78e?q=80&w=2070&auto=format&fit=crop', // Classic Tailor Suit
-    title: 'Bespoke Tailoring',
-    subtitle: 'Crafted to perfection, designed for you. Experience the art of true personalization.',
+    image: '/Home/tailor1.jpg',
+    subtitle: 'EST. 1998 • COLOMBO',
+    title: 'THE ART OF\nBESPOKE',
+    desc: 'Where Sri Lankan heritage meets Savile Row precision.',
   },
   {
     id: 2,
-    image: 'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format&fit=crop', // Sewing/Fabric
-    title: 'Premium Fabrics',
-    subtitle: 'Sourced from the finest mills in Italy and England. Quality you can feel.',
+    image: '/Home/tailor2.jpg',
+    subtitle: 'PREMIUM TEXTILES',
+    title: 'HAND-WOVEN\nLUXURY',
+    desc: 'Finest Italian Wools and Breathable Ceylon Linens.',
   },
   {
     id: 3,
-    image: 'https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?q=80&w=2095&auto=format&fit=crop', // Modern Man in Suit
-    title: 'Modern Elegance',
-    subtitle: 'Timeless style meets contemporary design. Elevate your wardrobe today.',
+    image: '/Home/tailor3.jpg',
+    subtitle: 'CEREMONIAL WEAR',
+    title: 'MODERN\nGROOM',
+    desc: 'From traditional Nilame outfits to sharp Tuxedos.',
   },
 ];
 
 const services = [
   {
-    icon: <Scissors size={32} />,
-    title: 'Custom Alterations',
-    description: 'Perfect fits for your existing wardrobe. Hemming, resizing, and restyling.',
+    id: 1,
+    icon: <Ruler strokeWidth={1} className="w-10 h-10" />,
+    title: "Made to Measure",
+    desc: "Precision fit tailored to your unique silhouette within 48 hours."
   },
   {
-    icon: <Ruler size={32} />,
-    title: 'Made to Measure',
-    description: 'Suits and shirts crafted to your exact measurements for unparalleled comfort.',
+    id: 2,
+    icon: <Scissors strokeWidth={1} className="w-10 h-10" />,
+    title: "Master Alterations",
+    desc: "Revitalize your wardrobe with invisible mending and structural resizing."
   },
   {
-    icon: <Shirt size={32} />,
-    title: 'Bespoke Suiting',
-    description: 'The ultimate sartorial experience. Fully hand-crafted from the finest fabrics.',
+    id: 3,
+    icon: <Crown strokeWidth={1} className="w-10 h-10" />,
+    title: "Wedding Suites",
+    desc: "Complete styling consultation for the groom and groomsmen."
   },
   {
-    icon: <Watch size={32} />,
-    title: 'Styling Consultation',
-    description: 'Expert advice on fabrics, cuts, and styles to elevate your personal brand.',
-  },
+    id: 4,
+    icon: <Shirt strokeWidth={1} className="w-10 h-10" />,
+    title: "Imported Fabrics",
+    desc: "Exclusive access to Loro Piana, Zegna, and Scabal textiles."
+  }
 ];
+
+// --- CUSTOM LUXURY BUTTON ---
+const GoldButton = ({ children, variant = "outline", className = "" }) => {
+  const baseStyle = "relative px-8 py-4 font-sans font-bold text-xs tracking-[0.25em] uppercase transition-all duration-500 overflow-hidden group border";
+  
+  // Define styles based on variant
+  const styles = variant === "outline" 
+    ? "border-[#C5A059] text-[#C5A059] hover:text-white"
+    : "border-white text-white hover:text-black hover:bg-white border-opacity-30";
+
+  return (
+    <button className={`${baseStyle} ${styles} ${className}`}>
+      {/* Background Fill Animation */}
+      {variant === "outline" && (
+        <span className="absolute inset-0 w-full h-full bg-[#C5A059] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-0"></span>
+      )}
+      <span className="relative z-10 flex items-center gap-3">
+        {children}
+      </span>
+    </button>
+  );
+};
 
 const Home = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white text-black font-sans selection:bg-[#C5A059] selection:text-white">
+      
+      {/* --- GLOBAL STYLES & FONTS --- */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+        
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .font-sans { font-family: 'Montserrat', sans-serif; }
+        
+        /* Swiper Pagination Customization */
+        .swiper-pagination-bullet {
+          width: 40px !important;
+          height: 2px !important;
+          background: rgba(255,255,255,0.3) !important;
+          opacity: 1 !important;
+          border-radius: 0 !important;
+          margin: 0 5px !important;
+        }
+        .swiper-pagination-bullet-active {
+          background: #C5A059 !important;
+          height: 3px !important;
+        }
+        
+        /* Smooth Scrolling for the page */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Hero Image Animation Optimization */
+        .hero-bg-image {
+          transform: scale(1.1);
+          transition: transform 10s linear;
+          will-change: transform;
+        }
+        .swiper-slide-active .hero-bg-image {
+          transform: scale(1);
+        }
+      `}</style>
+
       <Navbar />
+
       <main>
-        {/* Hero Section */}
+        {/* --- HERO SECTION --- */}
         <section className="relative h-screen w-full overflow-hidden bg-black">
           <Swiper
-            modules={[Autoplay, EffectFade, Navigation, Pagination, Parallax]}
+            modules={[Autoplay, EffectFade, Pagination]}
             effect="fade"
+            fadeEffect={{ crossFade: true }}
             speed={1500}
-            parallax={true}
-            autoplay={{
-              delay: 6000,
-              disableOnInteraction: false,
-            }}
-            pagination={{ 
-              clickable: true,
-              renderBullet: function (index, className) {
-                return '<span class="' + className + ' relative overflow-hidden"><span class="absolute inset-0 bg-secondary transform -translate-x-full transition-transform duration-6000 ease-linear w-full h-full"></span></span>';
-              }
-            }}
-            navigation={{
-              nextEl: '.swiper-button-next-custom',
-              prevEl: '.swiper-button-prev-custom',
-            }}
-            className="h-full w-full group"
+            autoplay={{ delay: 6000, disableOnInteraction: false }}
+            pagination={{ clickable: true, el: '.custom-pagination' }}
+            className="h-full w-full"
           >
             {slides.map((slide) => (
               <SwiperSlide key={slide.id} className="relative h-full w-full">
-                <div
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 transition-transform duration-10000 ease-out"
-                  style={{ backgroundImage: `url(${slide.image})` }}
-                  data-swiper-parallax="-20%"
-                >
-                  <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/40 to-transparent" />
+                {/* Image Background */}
+                <div className="absolute inset-0">
+                  <div 
+                    className="w-full h-full bg-cover bg-center opacity-60 hero-bg-image"
+                    style={{ backgroundImage: `url(${slide.image})` }}
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
                 </div>
-                
-                <div className="relative h-full container mx-auto px-6 md:px-12 flex flex-col justify-center items-start text-white z-10">
-                  <div className="max-w-4xl overflow-hidden">
+
+                {/* Content */}
+                <div className="relative z-10 h-full container mx-auto px-6 md:px-12 flex flex-col justify-center">
+                  <div className="max-w-4xl border-l border-[#C5A059] pl-8 md:pl-12">
                     <motion.div
-                      initial={{ opacity: 0, y: 50 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
+                      initial={{ opacity: 0, x: -30 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8 }}
                     >
-                      <div className="flex items-center gap-4 mb-6">
-                        <span className="h-px w-12 bg-secondary"></span>
-                        <h2 className="text-sm md:text-base font-medium tracking-[0.2em] uppercase text-secondary" data-swiper-parallax="-100">
-                          Est. 2024 • London
-                        </h2>
-                      </div>
+                      <span className="text-[#C5A059] font-bold tracking-[0.3em] text-xs uppercase mb-6 block">
+                        {slide.subtitle}
+                      </span>
                       
-                      <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold mb-8 leading-[0.9] tracking-tight" data-swiper-parallax="-200">
-                        {slide.title.split(' ').map((word, i) => (
-                          <span key={i} className="block">{word}</span>
-                        ))}
+                      <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-[0.9] mb-8 uppercase">
+                        {slide.title}
                       </h1>
                       
-                      <p className="text-lg md:text-xl text-gray-300 mb-12 max-w-xl font-light leading-relaxed border-l-2 border-white/20 pl-6" data-swiper-parallax="-300">
-                        {slide.subtitle}
+                      <p className="text-gray-300 text-lg font-light max-w-lg mb-10 leading-relaxed">
+                        {slide.desc}
                       </p>
-                      
-                      <div className="flex flex-wrap gap-6" data-swiper-parallax="-400">
-                        <button className="relative px-8 py-4 bg-white text-primary font-medium tracking-wide overflow-hidden group/btn transition-all duration-300 hover:bg-secondary hover:text-white">
-                          <span className="relative z-10 flex items-center gap-3">
-                            Book Appointment
-                            <ArrowRight size={18} />
-                          </span>
-                        </button>
-                        
-                        <button className="px-8 py-4 border border-white/30 text-white font-medium tracking-wide hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                          View Collection
-                        </button>
-                      </div>
+
+                      <GoldButton variant="outline">
+                        Book Appointment
+                      </GoldButton>
                     </motion.div>
                   </div>
                 </div>
               </SwiperSlide>
             ))}
-
-            {/* Custom Navigation */}
-            <div className="absolute bottom-12 right-12 z-20 gap-4 hidden md:flex">
-              <button className="swiper-button-prev-custom w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 backdrop-blur-sm">
-                <ChevronLeft size={24} />
-              </button>
-              <button className="swiper-button-next-custom w-14 h-14 border border-white/20 rounded-full flex items-center justify-center text-white hover:bg-white hover:text-primary transition-all duration-300 backdrop-blur-sm">
-                <ChevronRight size={24} />
-              </button>
-            </div>
+            
+            {/* Custom Pagination Container */}
+            <div className="custom-pagination absolute bottom-12 left-0 w-full flex justify-center z-20"></div>
           </Swiper>
-          
-          <style>{`
-            .swiper-pagination-bullet {
-              width: 40px;
-              height: 4px;
-              border-radius: 0;
-              background: rgba(255, 255, 255, 0.3);
-              opacity: 1;
-              margin: 0 6px !important;
-            }
-            .swiper-pagination-bullet-active {
-              background: rgba(255, 255, 255, 0.3);
-            }
-            .swiper-pagination-bullet-active .absolute {
-              transform: translateX(0);
-            }
-          `}</style>
         </section>
 
-        {/* About Section */}
-        <section className="py-24 bg-white overflow-hidden">
-            <div className="container mx-auto px-6">
-                <div className="flex flex-col lg:flex-row items-center gap-16">
+        {/* --- INTRODUCTION SECTION --- */}
+        <section className="py-24 bg-white relative overflow-hidden">
+          {/* Decorative Background Text */}
+          <span className="absolute top-20 right-0 text-[10rem] md:text-[15rem] font-serif text-[#C5A059] opacity-[0.05] leading-none select-none -z-0">
+            1998
+          </span>
 
-                    {/* Image Side */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="w-full lg:w-1/2 relative"
-                    >
-                        <div className="relative rounded-2xl overflow-hidden aspect-4/5">
-                            <img
-                                src="https://images.unsplash.com/photo-1598556776374-2274945f95d3?q=80&w=2070&auto=format&fit=crop"
-                                alt="Tailor working on fabric"
-                                className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                            />
-                        </div>
-                        {/* Floating Badge */}
-                        <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-xl shadow-xl max-w-xs hidden md:block">
-                            <div className="flex items-center gap-4 mb-2">
-                                <div className="text-4xl font-bold text-secondary">25+</div>
-                                <div className="text-sm font-medium text-gray-500 uppercase tracking-wide">Years of<br />Experience</div>
-                            </div>
-                            <p className="text-gray-600 text-sm">Master tailors dedicated to the art of perfection.</p>
-                        </div>
-                    </motion.div>
-
-                    {/* Content Side */}
-                    <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8 }}
-                        className="w-full lg:w-1/2"
-                    >
-                        <h4 className="text-secondary font-medium tracking-widest uppercase mb-4">About Us</h4>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold mb-6 leading-tight">
-                            We Craft Clothing That <br /> Defines Your Personality
-                        </h2>
-                        <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                            At Tailor Shop, we believe that true style is personal. Our journey began over two decades ago with a simple mission: to bring the tradition of bespoke tailoring to the modern gentleman and gentlewoman.
-                        </p>
-
-                        <div className="space-y-4 mb-10">
-                            {[
-                                'Expert craftsmanship with attention to detail',
-                                'Premium fabrics sourced globally',
-                                'Personalized fittings and consultations',
-                                'Timeless designs with a modern twist'
-                            ].map((item, index) => (
-                                <div key={index} className="flex items-center gap-3">
-                                    <CheckCircle className="text-secondary shrink-0" size={20} />
-                                    <span className="text-gray-700 font-medium">{item}</span>
-                                </div>
-                            ))}
-                        </div>
-
-                        <button className="border-2 border-primary text-primary px-8 py-3 rounded-full font-medium hover:bg-primary hover:text-white transition-all duration-300">
-                            Learn More About Us
-                        </button>
-                    </motion.div>
-
-                </div>
-            </div>
-        </section>
-
-        {/* Services Section */}
-        <section className="py-32 bg-accent relative overflow-hidden">
-          {/* Decorative Background Elements */}
-          <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-          </div>
-
-          <div className="container mx-auto px-6 md:px-12 relative z-10">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-              <div className="max-w-2xl">
-                <motion.span 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="text-secondary font-medium tracking-widest uppercase block mb-4"
-                >
-                  Our Expertise
-                </motion.span>
-                <motion.h2 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="text-4xl md:text-6xl font-serif font-bold leading-tight"
-                >
-                  Craftsmanship <br /> & Precision
-                </motion.h2>
-              </div>
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="flex flex-col lg:flex-row gap-16 items-center">
               
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2 }}
-                className="text-gray-600 max-w-md text-lg"
-              >
-                We offer a comprehensive range of tailoring services to ensure you look your absolute best, combining traditional techniques with modern style.
-              </motion.p>
+              {/* Image Composition */}
+              <div className="w-full lg:w-1/2 relative">
+                <div className="relative aspect-[4/5] bg-[#F5F5F5]">
+                  <img src="/Home/tailor4.jpg" alt="Tailoring" className="w-full h-full object-cover" />
+                  
+                  {/* Gold Frame Box */}
+                  <div className="absolute -bottom-6 -right-6 w-full h-full border border-[#C5A059] -z-10 hidden md:block"></div>
+                </div>
+              </div>
+
+              {/* Text Content */}
+              <div className="w-full lg:w-1/2">
+                <span className="text-black font-bold tracking-[0.25em] text-xs uppercase mb-4 block">
+                  The Atelier
+                </span>
+                <h2 className="text-4xl md:text-5xl font-serif text-black mb-8 leading-tight">
+                  Precision in Every <br />
+                  <span className="italic text-[#C5A059]">Stitch & Seam.</span>
+                </h2>
+                <p className="text-gray-600 font-sans text-lg leading-relaxed mb-8 text-justify">
+                  We don't just make suits; we engineer confidence. Located in the heart of Colombo, our heritage is built on the belief that a suit should not just fit your body, but your personality.
+                </p>
+
+                <div className="grid grid-cols-2 gap-8 mb-10">
+                   <div>
+                      <h4 className="text-4xl font-serif text-[#C5A059]">25+</h4>
+                      <p className="text-xs font-bold uppercase tracking-widest text-black mt-2">Years of Excellence</p>
+                   </div>
+                   <div>
+                      <h4 className="text-4xl font-serif text-[#C5A059]">5k+</h4>
+                      <p className="text-xs font-bold uppercase tracking-widest text-black mt-2">Bespoke Creations</p>
+                   </div>
+                </div>
+
+                <button className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.25em] text-black hover:text-[#C5A059] transition-colors">
+                  Explore Our Story 
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300"/>
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* --- SERVICES GRID --- */}
+        <section className="py-24 bg-[#0a0a0a] text-white">
+          <div className="container mx-auto px-6">
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-6">
+               <h2 className="text-4xl md:text-5xl font-serif">Our Expertise</h2>
+               <p className="text-[#C5A059] font-sans text-xs tracking-widest uppercase mt-4 md:mt-0">
+                  Full Service Tailoring
+               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
               {services.map((service, index) => (
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
+                  key={service.id}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="group bg-white p-8 rounded-none border border-gray-100 hover:border-secondary/30 transition-all duration-500 hover:shadow-2xl hover:shadow-secondary/5 relative overflow-hidden"
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  className="bg-[#0a0a0a] p-10 hover:bg-[#111] transition-colors duration-500 group cursor-pointer"
                 >
-                  <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <ArrowUpRight className="text-secondary" />
-                  </div>
-                  
-                  <div className="w-14 h-14 bg-accent rounded-full flex items-center justify-center mb-8 text-primary group-hover:bg-secondary group-hover:text-white transition-colors duration-500">
+                  <div className="mb-8 text-[#C5A059] group-hover:scale-110 transition-transform duration-500 origin-left">
                     {service.icon}
                   </div>
-                  
-                  <h3 className="text-xl font-serif font-bold mb-4 group-hover:text-secondary transition-colors duration-300">{service.title}</h3>
-                  <p className="text-gray-500 leading-relaxed mb-6">{service.description}</p>
-                  
-                  <div className="w-full h-px bg-gray-100 group-hover:bg-secondary/30 transition-colors duration-500"></div>
+                  <h3 className="text-xl font-serif text-white mb-4 group-hover:text-[#C5A059] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-400 font-sans text-sm leading-relaxed group-hover:text-gray-300">
+                    {service.desc}
+                  </p>
                 </motion.div>
               ))}
             </div>
           </div>
         </section>
+
+        {/* --- COLLECTION HIGHLIGHT --- */}
+        <section className="py-24 bg-white">
+           <div className="container mx-auto px-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                 <div className="order-2 lg:order-1">
+                    <span className="text-[#C5A059] font-bold tracking-[0.25em] text-xs uppercase mb-4 block">
+                       Collections 2024
+                    </span>
+                    <h2 className="text-4xl md:text-5xl font-serif text-black mb-6">
+                       The Modern Executive
+                    </h2>
+                    <p className="text-gray-600 text-lg mb-8 font-light">
+                       Sharp lines, structured shoulders, and fabrics that breathe. Designed for the Colombo climate, tailored for the global boardroom.
+                    </p>
+                    
+                    <ul className="space-y-4 mb-10">
+                       {['Canvas Construction', 'Functional Buttonholes', 'Italian Wool'].map((item, i) => (
+                          <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-black">
+                             <Star className="w-4 h-4 text-[#C5A059] fill-[#C5A059]" /> {item}
+                          </li>
+                       ))}
+                    </ul>
+
+                    <GoldButton variant="outline" className="border-black text-black hover:text-white">
+                        <span className="group-hover:text-white">View Collection</span>
+                        {/* Override default gold fill with black for this specific button if needed, or keep gold */}
+                    </GoldButton>
+                 </div>
+
+                 <div className="order-1 lg:order-2 relative h-[600px] overflow-hidden group">
+                    <img src="/Home/tailor6.jpg" alt="Collection" className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
+                    <div className="absolute inset-0 border-[10px] border-white/0 group-hover:border-white/20 transition-all duration-500 pointer-events-none"></div>
+                 </div>
+              </div>
+           </div>
+        </section>
+
+        {/* --- CTA SECTION --- */}
+        <section className="py-24 bg-[#C5A059] relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            
+            <div className="container mx-auto px-6 text-center relative z-10">
+               <h2 className="text-4xl md:text-6xl font-serif text-white mb-8">
+                  Your Fitting Awaits
+               </h2>
+               <p className="text-white/90 font-sans text-lg max-w-2xl mx-auto mb-10">
+                  Experience the luxury of true bespoke tailoring. Visit our flagship store in Colombo 07.
+               </p>
+               
+               <button className="bg-white text-[#C5A059] px-12 py-5 font-bold tracking-[0.25em] uppercase hover:bg-black hover:text-white transition-all duration-300">
+                  Book Consultation
+               </button>
+            </div>
+        </section>
+
       </main>
       <Footer />
     </div>
