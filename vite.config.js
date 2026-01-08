@@ -8,4 +8,17 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+
+  build: {
+    chunkSizeWarningLimit: 1000, // 1MB (warning remove)
+    
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          vendor: ['axios'], // use karanne axios thiyenawanm
+        }
+      }
+    }
+  }
 })
