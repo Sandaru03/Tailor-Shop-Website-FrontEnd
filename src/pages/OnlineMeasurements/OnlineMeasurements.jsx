@@ -121,7 +121,7 @@ const OnlineMeasurements = () => {
     }
 
     try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/measurements`, {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/measurements`, {
             method: 'POST',
             body: formData, // do NOT set Content-Type header manually for FormData
         });
