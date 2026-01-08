@@ -26,10 +26,13 @@ const BookAppointment = () => {
     const [selectedDateObj, setSelectedDateObj] = useState(null);
 
     // Standard Operating Hours (e.g., 9 AM to 7 PM)
-    const STANDARD_SLOTS = [
-        "09:00", "10:00", "11:00", "12:00", 
-        "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00"
-    ];
+    const STANDARD_SLOTS = [];
+    for (let h = 9; h < 19; h++) {
+        ["00", "15", "30", "45"].forEach(m => {
+            STANDARD_SLOTS.push(`${h.toString().padStart(2, '0')}:${m}`);
+        });
+    }
+    STANDARD_SLOTS.push("19:00");
 
     useEffect(() => {
         fetchAppointments();
