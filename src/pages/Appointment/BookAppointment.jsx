@@ -53,7 +53,7 @@ const BookAppointment = () => {
             // I'll check that in a sec. For now, I'll write the frontend anticipating a list of {date, time}.
             
             // To make this work securely, I'm going to just fetch them. If it fails due to auth, I'll fix the backend next.
-            const res = await fetch('http://localhost:5000/appointments'); 
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/appointments`); 
             if (res.ok) {
                 const data = await res.json();
                 setExistingAppointments(data);
@@ -94,7 +94,7 @@ const BookAppointment = () => {
         setLoading(true);
 
         try {
-            const res = await fetch('http://localhost:5000/appointments', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/appointments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)

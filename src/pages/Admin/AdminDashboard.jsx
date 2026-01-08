@@ -47,7 +47,7 @@ const AdminDashboard = () => {
 
   const fetchMeasurements = async () => {
     try {
-      const res = await fetch('http://localhost:5000/measurements');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/measurements`);
       const data = await res.json();
       setMeasurements(data);
     } catch (err) {
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
 
   const fetchAppointments = async () => {
       try {
-          const res = await fetch('http://localhost:5000/appointments');
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/appointments`);
           const data = await res.json();
           setAppointments(data);
       } catch (err) {
@@ -69,7 +69,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = async () => {
       try {
-          const res = await fetch('http://localhost:5000/users/all-users', {
+          const res = await fetch(`${import.meta.env.VITE_API_URL}/users/all-users`, {
             headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
           });
           const data = await res.json();
@@ -84,7 +84,7 @@ const AdminDashboard = () => {
   const deleteMeasurement = async (id) => {
       if(!confirm("Are you sure?")) return;
       try {
-          await fetch(`http://localhost:5000/measurements/${id}`, { method: 'DELETE' });
+          await fetch(`${import.meta.env.VITE_API_URL}/measurements/${id}`, { method: 'DELETE' });
           fetchMeasurements();
       } catch (err) {
           console.error("Failed to delete");
@@ -94,7 +94,7 @@ const AdminDashboard = () => {
   const toggleAdminRole = async (userId, currentRole) => {
       const newRole = currentRole === 'admin' ? 'customer' : 'admin';
       try {
-           await fetch(`http://localhost:5000/users/${userId}/role`, {
+           await fetch(`${import.meta.env.VITE_API_URL}/users/${userId}/role`, {
                method: 'PUT',
                headers: { 
                    'Content-Type': 'application/json',
@@ -143,13 +143,13 @@ const AdminDashboard = () => {
                     {selectedVideos.front && (
                         <div>
                             <h3 className="text-white text-center mb-2 font-bold uppercase">Front View</h3>
-                            <video src={`http://localhost:5000/${selectedVideos.front}`} controls className="w-full rounded-lg bg-black border border-white/20" />
+                            <video src={`${import.meta.env.VITE_API_URL}/${selectedVideos.front}`} controls className="w-full rounded-lg bg-black border border-white/20" />
                         </div>
                     )}
                     {selectedVideos.back && (
                         <div>
                             <h3 className="text-white text-center mb-2 font-bold uppercase">Back View</h3>
-                            <video src={`http://localhost:5000/${selectedVideos.back}`} controls className="w-full rounded-lg bg-black border border-white/20" />
+                            <video src={`${import.meta.env.VITE_API_URL}/${selectedVideos.back}`} controls className="w-full rounded-lg bg-black border border-white/20" />
                         </div>
                     )}
                 </div>
