@@ -169,7 +169,8 @@ const OnlineMeasurements = () => {
             mimeTypesRef.current = { front: null, back: null };
             // Clear URL objects to free memory
         } else {
-            alert("Failed to submit measurements. Please try again.");
+            const errorData = await response.json();
+            alert(`Failed to submit: ${errorData.message || "Unknown error"}`);
         }
     } catch (error) {
         console.error("Submission error:", error);
