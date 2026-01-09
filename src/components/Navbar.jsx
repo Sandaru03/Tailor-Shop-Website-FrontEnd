@@ -101,7 +101,7 @@ const Navbar = () => {
               >
                 {link.name}
                 {/* Sharp Underline Effect */}
-                <span className={`absolute bottom-0 left-0 w-0 h-[1px] transition-all duration-300 group-hover:w-full ${
+                <span className={`absolute bottom-0 left-0 w-0 h-px transition-all duration-300 group-hover:w-full ${
                     isDarkInfo ? "bg-[#C5A059]" : "bg-white"
                 }`}></span>
               </Link>
@@ -209,7 +209,7 @@ const Navbar = () => {
             animate={{ clipPath: "inset(0 0 0 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center"
+            className="fixed inset-0 z-40 bg-white flex flex-col justify-center items-center overflow-y-auto p-4"
           >
             <div className="flex flex-col items-center space-y-8">
               {navLinks.map((link, index) => (
@@ -229,13 +229,40 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
+
+              {/* Mobile Icons Section */}
+              <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="grid grid-cols-3 gap-12 mt-8 text-black"
+              >
+                  <button onClick={handleUserClick} className="flex flex-col items-center gap-3 group">
+                       <div className="p-3 bg-gray-50 rounded-full group-hover:bg-[#C5A059] group-hover:text-white transition-colors duration-300">
+                          <User size={24} strokeWidth={1.5} />
+                       </div>
+                       <span className="text-[10px] font-bold uppercase tracking-widest">Account</span>
+                  </button>
+                  <button onClick={() => { navigate('/collections'); setIsMobileMenuOpen(false); }} className="flex flex-col items-center gap-3 group">
+                       <div className="p-3 bg-gray-50 rounded-full group-hover:bg-[#C5A059] group-hover:text-white transition-colors duration-300">
+                          <Search size={24} strokeWidth={1.5} />
+                       </div>
+                       <span className="text-[10px] font-bold uppercase tracking-widest">Search</span>
+                  </button>
+                  <button className="flex flex-col items-center gap-3 relative group">
+                        <div className="p-3 bg-gray-50 rounded-full group-hover:bg-[#C5A059] group-hover:text-white transition-colors duration-300">
+                           <ShoppingBag size={24} strokeWidth={1.5} />
+                        </div>
+                        <span className="text-[10px] font-bold uppercase tracking-widest">Cart</span>
+                  </button>
+              </motion.div>
             </div>
             
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="absolute bottom-12 w-full px-12 flex justify-between text-black font-[Montserrat] text-xs font-bold tracking-[0.2em] uppercase"
+              className="absolute bottom-8 w-full px-6 flex justify-between items-center text-gray-400 font-[Montserrat] text-[10px] font-bold tracking-[0.2em] uppercase border-t border-gray-100 pt-6"
             >
               <span>Est. 1998</span>
               <span>Colombo 07</span>

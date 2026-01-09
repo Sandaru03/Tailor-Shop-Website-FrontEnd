@@ -133,7 +133,7 @@ const Home = () => {
 
       <main>
         {/* --- HERO SECTION --- */}
-        <section className="relative h-screen w-full overflow-hidden bg-black">
+        <section className="relative h-dvh w-full overflow-hidden bg-black">
           <Swiper
             modules={[Autoplay, EffectFade, Pagination]}
             effect="fade"
@@ -152,7 +152,7 @@ const Home = () => {
                     style={{ backgroundImage: `url(${slide.image})` }}
                   />
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-r from-black/80 via-black/20 to-transparent" />
                 </div>
 
                 {/* Content */}
@@ -168,15 +168,15 @@ const Home = () => {
                         {slide.subtitle}
                       </span>
                       
-                      <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-white leading-[0.9] mb-8 uppercase">
+                      <h1 className="text-4xl md:text-7xl lg:text-8xl font-serif text-white leading-[0.9] mb-8 uppercase">
                         {slide.title}
                       </h1>
                       
-                      <p className="text-gray-300 text-lg font-light max-w-lg mb-10 leading-relaxed">
+                      <p className="text-gray-300 text-sm md:text-lg font-light max-w-lg mb-10 leading-relaxed">
                         {slide.desc}
                       </p>
 
-                      <GoldButton variant="outline">
+                      <GoldButton variant="outline" className="text-xs">
                         Book Appointment
                       </GoldButton>
                     </motion.div>
@@ -193,7 +193,7 @@ const Home = () => {
         {/* --- INTRODUCTION SECTION --- */}
         <section className="py-24 bg-white relative overflow-hidden">
           {/* Decorative Background Text */}
-          <span className="absolute top-20 right-0 text-[10rem] md:text-[15rem] font-serif text-[#C5A059] opacity-[0.05] leading-none select-none -z-0">
+          <span className="absolute top-20 right-0 text-[5rem] md:text-[15rem] font-serif text-[#C5A059] opacity-[0.05] leading-none select-none z-0">
             1998
           </span>
 
@@ -202,7 +202,7 @@ const Home = () => {
               
               {/* Image Composition */}
               <div className="w-full lg:w-1/2 relative">
-                <div className="relative aspect-[4/5] bg-[#F5F5F5]">
+                <div className="relative aspect-4/5 bg-[#F5F5F5]">
                   <img src="/Home/tailor4.jpg" alt="Tailoring" className="w-full h-full object-cover" />
                   
                   {/* Gold Frame Box */}
@@ -310,7 +310,7 @@ const Home = () => {
 
                  <div className="order-1 lg:order-2 relative h-[600px] overflow-hidden group">
                     <img src="/Home/tailor6.jpg" alt="Collection" className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
-                    <div className="absolute inset-0 border-[10px] border-white/0 group-hover:border-white/20 transition-all duration-500 pointer-events-none"></div>
+                    <div className="absolute inset-0 border-10 border-white/0 group-hover:border-white/20 transition-all duration-500 pointer-events-none"></div>
                  </div>
               </div>
            </div>

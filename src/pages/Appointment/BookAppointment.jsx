@@ -134,7 +134,7 @@ const BookAppointment = () => {
                 <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 shadow-2xl overflow-hidden rounded-2xl">
                     
                     {/* Left Side */}
-                    <div className="bg-black text-white p-12 flex flex-col justify-between relative overflow-hidden">
+                    <div className="bg-black text-white p-6 md:p-12 flex flex-col justify-between relative overflow-hidden">
                         <div className="absolute inset-0 opacity-40 bg-[url('/Home/tailor1.jpg')] bg-cover bg-center"></div>
                         <div className="relative z-10">
                             <h2 className="text-4xl font-[Playfair_Display] mb-4">Book Your <br/> Consultation</h2>
@@ -149,7 +149,7 @@ const BookAppointment = () => {
                     </div>
 
                     {/* Right Side - Form */}
-                    <div className="bg-white p-12 relative overflow-visible"> 
+                    <div className="bg-white p-6 md:p-12 relative overflow-visible"> 
                         {!success ? (
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>

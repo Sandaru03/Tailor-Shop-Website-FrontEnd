@@ -3,28 +3,28 @@ import { Facebook, Instagram, Twitter, Linkedin, ArrowRight } from 'lucide-react
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white pt-24 pb-12 border-t border-[#C5A059]">
-      <div className="container mx-auto px-6 md:px-12">
+    <footer className="bg-black text-white pt-16 md:pt-24 pb-12 border-t border-[#C5A059]">
+      <div className="container mx-auto px-6 md:px-12 text-center md:text-left">
         
         {/* Top Grid - Structural Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-20 border-b border-white/10 pb-20">
           
           {/* Brand Column (Span 4) */}
-          <div className="lg:col-span-4 flex flex-col justify-between h-full">
+          <div className="lg:col-span-4 flex flex-col justify-between h-full items-center md:items-start">
             <div>
               <Link to="/" className="text-3xl md:text-4xl font-[Playfair_Display] font-bold tracking-tighter block mb-6">
                 TAILOR<span className="text-[#C5A059]">.</span>
               </Link>
-              <p className="text-gray-400 font-[Montserrat] text-sm leading-relaxed max-w-xs font-light">
+              <p className="text-gray-400 font-[Montserrat] text-sm leading-relaxed max-w-xs font-light mx-auto md:mx-0">
                 Crafting bespoke elegance for the modern individual. Located in Colombo 07, where heritage meets avant-garde style.
               </p>
             </div>
-            <div className="flex gap-6 mt-8">
+            <div className="flex gap-6 mt-8 justify-center md:justify-start">
               {[Facebook, Instagram, Twitter, Linkedin].map((Icon, index) => (
                 <a 
                   key={index} 
                   href="#" 
-                  className="text-white hover:text-[#C5A059] transition-colors duration-300"
+                  className="text-white hover:text-[#C5A059] transition-colors duration-300 transform hover:scale-110"
                 >
                   <Icon size={20} strokeWidth={1} />
                 </a>

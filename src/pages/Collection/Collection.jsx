@@ -57,7 +57,7 @@ const Collection = () => {
                     className="w-full h-full bg-[url('/Home/tailor1.jpg')] bg-cover bg-center opacity-50"
                 />
              </div>
-             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+             <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent"></div>
              
              <div className="relative z-10 container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-end gap-8">
                 <div>
@@ -129,7 +129,7 @@ const Collection = () => {
             {/* Gallery Grid - AnimatePresence allows layout animations */}
             <motion.div 
                 layout
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16"
+                className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-16"
             >
                 <AnimatePresence>
                     {filteredItems.map((item) => (
@@ -143,7 +143,7 @@ const Collection = () => {
                             className="group cursor-pointer"
                         >
                             {/* Image Container */}
-                            <div className="relative aspect-[3/4] overflow-hidden mb-6 bg-gray-100">
+                            <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
                                 <img 
                                     src={item.image} 
                                     alt={item.title} 
@@ -172,7 +172,7 @@ const Collection = () => {
                                     <span className="text-[#C5A059] text-[10px] font-bold uppercase tracking-[0.2em] mb-2 block">
                                         {item.category}
                                     </span>
-                                    <h3 className="text-2xl font-serif text-black group-hover:italic transition-all duration-300">
+                                    <h3 className="text-sm md:text-2xl font-serif text-black group-hover:italic transition-all duration-300">
                                         {item.title}
                                     </h3>
                                 </div>

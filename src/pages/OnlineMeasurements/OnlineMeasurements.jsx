@@ -309,7 +309,7 @@ const OnlineMeasurements = () => {
             </div>
 
             {/* RIGHT COLUMN: Measurement Form */}
-            <div className="bg-gray-50 p-8 lg:p-12">
+            <div className="bg-gray-50 p-6 md:p-12">
                <div className="flex items-center gap-3 mb-8">
                   <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">2</div>
                   <h3 className="text-xl font-serif">Enter Details & Measurements</h3>
