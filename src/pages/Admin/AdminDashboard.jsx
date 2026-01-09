@@ -143,13 +143,25 @@ const AdminDashboard = () => {
                     {selectedVideos.front && (
                         <div>
                             <h3 className="text-white text-center mb-2 font-bold uppercase">Front View</h3>
-                            <video src={`${import.meta.env.VITE_BACKEND_URL}/${selectedVideos.front}`} controls className="w-full rounded-lg bg-black border border-white/20" />
+                            <video 
+                                src={selectedVideos.front.startsWith('http') ? selectedVideos.front : `${import.meta.env.VITE_BACKEND_URL}/${selectedVideos.front}`} 
+                                controls 
+                                playsInline
+                                preload="metadata"
+                                className="w-full rounded-lg bg-black border border-white/20" 
+                            />
                         </div>
                     )}
                     {selectedVideos.back && (
                         <div>
                             <h3 className="text-white text-center mb-2 font-bold uppercase">Back View</h3>
-                            <video src={`${import.meta.env.VITE_BACKEND_URL}/${selectedVideos.back}`} controls className="w-full rounded-lg bg-black border border-white/20" />
+                            <video 
+                                src={selectedVideos.back.startsWith('http') ? selectedVideos.back : `${import.meta.env.VITE_BACKEND_URL}/${selectedVideos.back}`} 
+                                controls 
+                                playsInline
+                                preload="metadata"
+                                className="w-full rounded-lg bg-black border border-white/20" 
+                            />
                         </div>
                     )}
                 </div>

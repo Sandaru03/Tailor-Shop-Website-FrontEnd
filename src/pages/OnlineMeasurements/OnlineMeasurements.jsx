@@ -53,30 +53,55 @@ const OnlineMeasurements = () => {
     }
   };
 
-  // Store Blobs separately from URLs to upload them
+  // Store Blobs and their mime types
   const blobsRef = useRef({ front: null, back: null });
+  const mimeTypesRef = useRef({ front: null, back: null });
+
+  const getSupportedMimeType = () => {
+    const types = [
+      'video/webm;codecs=vp9,opus',
+      'video/webm;codecs=vp8,opus',
+      'video/webm',
+      'video/mp4'
+    ];
+    for (const type of types) {
+      if (MediaRecorder.isTypeSupported(type)) {
+        return type;
+      }
+    }
+    return 'video/webm'; // Fallback
+  };
 
   const startRecording = () => {
     if (stream) {
-      const recorder = new MediaRecorder(stream);
-      setMediaRecorder(recorder);
+      const mimeType = getSupportedMimeType();
+      const options = { mimeType };
       
-      const chunks = [];
-      recorder.ondataavailable = (e) => {
-        if (e.data.size > 0) {
-          chunks.push(e.data);
-        }
-      };
-      
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/webm' });
-        const url = URL.createObjectURL(blob);
-        setVideoURLs(prev => ({ ...prev, [activeView]: url }));
-        blobsRef.current[activeView] = blob; // Store blob for upload
-      };
-
-      recorder.start();
-      setRecording(true);
+      try {
+        const recorder = new MediaRecorder(stream, options);
+        setMediaRecorder(recorder);
+        
+        const chunks = [];
+        recorder.ondataavailable = (e) => {
+          if (e.data.size > 0) {
+            chunks.push(e.data);
+          }
+        };
+        
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: mimeType });
+          const url = URL.createObjectURL(blob);
+          setVideoURLs(prev => ({ ...prev, [activeView]: url }));
+          blobsRef.current[activeView] = blob;
+          mimeTypesRef.current[activeView] = mimeType;
+        };
+  
+        recorder.start();
+        setRecording(true);
+      } catch (e) {
+        console.error("MediaRecorder error:", e);
+        setError("Failed to start recording. Please try a different browser.");
+      }
     }
   };
 
@@ -90,8 +115,11 @@ const OnlineMeasurements = () => {
   const downloadVideo = (view) => {
     const url = videoURLs[view];
     if (url && downloadLinkRef.current) {
+      const mimeType = mimeTypesRef.current[view] || 'video/webm';
+      const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+      
       downloadLinkRef.current.href = url;
-      downloadLinkRef.current.download = `my-measurements-${view}.webm`;
+      downloadLinkRef.current.download = `my-measurements-${view}.${ext}`;
       downloadLinkRef.current.click();
     }
   };
@@ -114,10 +142,14 @@ const OnlineMeasurements = () => {
     });
 
     if (blobsRef.current.front) {
-        formData.append('videoFront', blobsRef.current.front, 'front-view.webm');
+        const mime = mimeTypesRef.current.front || 'video/webm';
+        const ext = mime.includes('mp4') ? 'mp4' : 'webm';
+        formData.append('videoFront', blobsRef.current.front, `front-view.${ext}`);
     }
     if (blobsRef.current.back) {
-        formData.append('videoBack', blobsRef.current.back, 'back-view.webm');
+        const mime = mimeTypesRef.current.back || 'video/webm';
+        const ext = mime.includes('mp4') ? 'mp4' : 'webm';
+        formData.append('videoBack', blobsRef.current.back, `back-view.${ext}`);
     }
 
     try {
@@ -134,6 +166,7 @@ const OnlineMeasurements = () => {
             });
             setVideoURLs({ front: null, back: null });
             blobsRef.current = { front: null, back: null };
+            mimeTypesRef.current = { front: null, back: null };
             // Clear URL objects to free memory
         } else {
             alert("Failed to submit measurements. Please try again.");
