@@ -13,10 +13,10 @@ const Footer = () => {
           <div className="lg:col-span-4 flex flex-col justify-between h-full items-center md:items-start">
             <div>
               <Link to="/" className="text-3xl md:text-4xl font-[Playfair_Display] font-bold tracking-tighter block mb-6">
-                TAILOR<span className="text-[#C5A059]">.</span>
+                SALON<span className="text-[#C5A059]">.</span>
               </Link>
               <p className="text-gray-400 font-[Montserrat] text-sm leading-relaxed max-w-xs font-light mx-auto md:mx-0">
-                Crafting bespoke elegance for the modern individual. Located in Colombo 07, where heritage meets avant-garde style.
+                Crafting beauty and elegance for the modern individual. Located in Colombo 07, where style meets luxury care.
               </p>
             </div>
             <div className="flex gap-6 mt-8 justify-center md:justify-start">
@@ -32,28 +32,20 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Links Column (Span 2) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xs font-[Montserrat] font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-8">Menu</h4>
+          {/* Links Column */}
+          <div className="lg:col-span-4">
+            <h4 className="text-xs font-[Montserrat] font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-8">Quick Links</h4>
             <ul className="space-y-4 font-[Montserrat] text-sm">
-              {['Home', 'Collections', 'Bespoke', 'Journal', 'Contact'].map((item) => (
-                <li key={item}>
-                  <Link to="#" className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 block">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services Column (Span 2) */}
-          <div className="lg:col-span-2">
-            <h4 className="text-xs font-[Montserrat] font-bold uppercase tracking-[0.25em] text-[#C5A059] mb-8">Services</h4>
-            <ul className="space-y-4 font-[Montserrat] text-sm">
-              {['Made to Measure', 'Alterations', 'Wedding', 'Fabrics', 'Styling'].map((item) => (
-                <li key={item}>
-                  <Link to="#" className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 block">
-                    {item}
+              {[
+                { name: 'Home', path: '/' },
+                { name: 'Collections', path: '/collections' },
+                { name: 'Online Measurements', path: '/measurements' },
+                { name: 'Book Appointment', path: '/appointment' },
+                { name: 'About Us', path: '/about' }
+              ].map((link) => (
+                <li key={link.name}>
+                  <Link to={link.path} className="text-gray-400 hover:text-white hover:pl-2 transition-all duration-300 block">
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -87,7 +79,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 font-[Montserrat] text-xs text-gray-600 uppercase tracking-widest">
           <p>
-            &copy; {new Date().getFullYear()} Tailor Shop.
+            &copy; {new Date().getFullYear()} Beauty Salon.
           </p>
           <div className="flex space-x-8">
             <Link to="#" className="hover:text-white transition-colors">Privacy</Link>

@@ -169,8 +169,7 @@ const OnlineMeasurements = () => {
             mimeTypesRef.current = { front: null, back: null };
             // Clear URL objects to free memory
         } else {
-            const errorData = await response.json();
-            alert(`Failed to submit: ${errorData.message || "Unknown error"}`);
+            alert("Failed to submit measurements. Please try again.");
         }
     } catch (error) {
         console.error("Submission error:", error);
@@ -193,20 +192,20 @@ const OnlineMeasurements = () => {
           {/* Header */}
           <div className="text-center mb-16">
             <span className="text-[#C5A059] font-bold tracking-[0.25em] text-xs uppercase mb-4 block">
-              Virtual Fitting Room
+              Bridal Consultation
             </span>
             <h1 className="text-4xl md:text-5xl font-serif text-black mb-6">
-              Online Measurements
+              Virtual Fitting Room
             </h1>
             <p className="text-gray-600 max-w-2xl mx-auto font-light leading-relaxed">
-              Record your Front and Back views separately to ensure a perfect fit. Use the guide below to enter your precise measurements.
+              Upload or record your current look/measurements to help our stylists prepare for your big day. Precise details ensure the perfect fit.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             
             {/* LEFT COLUMN: Camera & Recording */}
-            <div className="space-y-8">
+            <div className="space-y-8 lg:sticky lg:top-32 lg:self-start lg:h-fit">
                <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-bold text-sm">1</div>
@@ -355,9 +354,9 @@ const OnlineMeasurements = () => {
                  <div className="relative aspect-4/3 w-full bg-gray-100 rounded overflow-hidden">
                     {/* Placeholder for the generated image. Using a local file path that we will populate via generate_image */}
                     <img 
-                      src="/measurement_guide_diagram.png" 
-                      alt="Measurement Guide" 
-                      className="w-full h-full object-contain mix-blend-multiply"
+                      src="/bride.jpg" 
+                      alt="Bridal Measurements" 
+                      className="w-full h-full object-contain"
                     />
                  </div>
                </div>

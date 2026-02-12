@@ -15,7 +15,9 @@ const BookAppointment = () => {
     const [formData, setFormData] = useState({
         customerName: '',
         contactNumber: '',
+        gender: '', // Added gender
         garmentType: '',
+        otherGarment: '', // temp state for custom input
         date: '',
         time: ''
     });
@@ -94,10 +96,16 @@ const BookAppointment = () => {
         setLoading(true);
 
         try {
+            // Combine garment type if "Other" was selected (handled in UI, but ensure final payload is correct)
+            const payload = {
+                ...formData,
+                garmentType: formData.garmentType === 'Other' ? formData.otherGarment : formData.garmentType
+            };
+
             const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/appointments`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(payload)
             });
 
             if (res.ok) {
@@ -161,7 +169,7 @@ const BookAppointment = () => {
                                             required
                                             value={formData.customerName}
                                             onChange={e => setFormData({...formData, customerName: e.target.value})}
-                                            placeholder="John Doe"
+                                            placeholder="Full Name"
                                             className="w-full outline-none font-[Montserrat] text-sm"
                                         />
                                     </div>
@@ -183,6 +191,36 @@ const BookAppointment = () => {
                                 </div>
 
                                 <div>
+                                    <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Gender</label>
+                                    <div className="flex items-center gap-6 py-2">
+                                        <label className="flex items-center cursor-pointer">
+                                            <input 
+                                                type="radio" 
+                                                name="gender" 
+                                                value="Gents"
+                                                checked={formData.gender === 'Gents'}
+                                                onChange={e => setFormData({...formData, gender: e.target.value})}
+                                                className="mr-2 accent-black"
+                                                required
+                                            />
+                                            <span className="text-sm font-[Montserrat]">Gents</span>
+                                        </label>
+                                        <label className="flex items-center cursor-pointer">
+                                            <input 
+                                                type="radio" 
+                                                name="gender" 
+                                                value="Ladies"
+                                                checked={formData.gender === 'Ladies'}
+                                                onChange={e => setFormData({...formData, gender: e.target.value})}
+                                                className="mr-2 accent-black" 
+                                                required
+                                            />
+                                            <span className="text-sm font-[Montserrat]">Ladies</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div>
                                     <label className="block text-xs font-bold uppercase tracking-widest text-gray-400 mb-2">Garment Type</label>
                                     <div className="flex items-center border-b border-gray-200 py-2">
                                         <Scissors size={18} className="text-[#C5A059] mr-3" />
@@ -198,9 +236,24 @@ const BookAppointment = () => {
                                             <option value="Trousers">Trousers</option>
                                             <option value="Ceremonial">Ceremonial Wear</option>
                                             <option value="Alteration">Alteration</option>
+                                            <option value="Other">Other (Specify)</option>
                                         </select>
                                     </div>
                                 </div>
+
+                                {formData.garmentType === 'Other' && (
+                                    <div className="mt-2">
+                                         <label className="block text-xs font-bold uppercase tracking-widest text-[#C5A059] mb-2">Please Specify</label>
+                                         <textarea 
+                                            rows="2"
+                                            value={formData.otherGarment}
+                                            onChange={e => setFormData({...formData, otherGarment: e.target.value})}
+                                            className="w-full border border-gray-300 p-3 rounded font-[Montserrat] text-sm outline-none focus:border-[#C5A059]"
+                                            placeholder="Describe the garment..."
+                                            required
+                                         ></textarea>
+                                    </div>
+                                )}
 
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div className="relative">

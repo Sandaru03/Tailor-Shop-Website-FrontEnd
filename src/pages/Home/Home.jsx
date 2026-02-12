@@ -1,9 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { 
-  ArrowRight, Scissors, Ruler, Shirt, Crown, Star 
+  ArrowRight, Scissors, Sparkles, Palette, Crown, Star 
 } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
@@ -16,58 +17,58 @@ import 'swiper/css/pagination';
 
 // --- DATA ---
 const slides = [
-  {
+    {
     id: 1,
-    image: '/Home/tailor1.jpg',
+    image: 'https://images.unsplash.com/photo-1633681926022-84c23e8cb2d6?q=80&w=2000&auto=format&fit=crop', // Replaced as requested (ID: LGXN4OSQSa4)
     subtitle: 'EST. 1998 • COLOMBO',
-    title: 'THE ART OF\nBESPOKE',
-    desc: 'Where Sri Lankan heritage meets Savile Row precision.',
+    title: 'THE ART OF\nBEAUTY',
+    desc: 'Where Sri Lankan heritage meets modern elegance.',
   },
   {
     id: 2,
-    image: '/Home/tailor2.jpg',
-    subtitle: 'PREMIUM TEXTILES',
-    title: 'HAND-WOVEN\nLUXURY',
-    desc: 'Finest Italian Wools and Breathable Ceylon Linens.',
+    image: 'https://images.unsplash.com/photo-1522337660859-02fbefca4702?q=80&w=2069&auto=format&fit=crop',
+    subtitle: 'PREMIUM CARE',
+    title: 'RADIANT\nELEGANCE',
+    desc: 'Finest Organic Treatments and Rejuvenating Therapies.',
   },
   {
     id: 3,
-    image: '/Home/tailor3.jpg',
-    subtitle: 'CEREMONIAL WEAR',
-    title: 'MODERN\nGROOM',
-    desc: 'From traditional Nilame outfits to sharp Tuxedos.',
+    image: 'https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?q=80&w=2078&auto=format&fit=crop',
+    subtitle: 'CEREMONIAL GLAMOUR',
+    title: 'BRIDAL\nGLOW',
+    desc: 'From traditional Kandyan looks to modern Western styles.',
   },
 ];
 
 const services = [
   {
     id: 1,
-    icon: <Ruler strokeWidth={1} className="w-10 h-10" />,
-    title: "Made to Measure",
-    desc: "Precision fit tailored to your unique silhouette within 48 hours."
+    icon: <Scissors strokeWidth={1} className="w-10 h-10" />,
+    title: "Expert Hair Styling",
+    desc: "Precision cuts, coloring, and styling tailored to your unique personality."
   },
   {
     id: 2,
-    icon: <Scissors strokeWidth={1} className="w-10 h-10" />,
-    title: "Master Alterations",
-    desc: "Revitalize your wardrobe with invisible mending and structural resizing."
+    icon: <Crown strokeWidth={1} className="w-10 h-10" />,
+    title: "Bridal Dressing",
+    desc: "Complete bridal packages including hair, makeup, and dressing for your big day."
   },
   {
     id: 3,
-    icon: <Crown strokeWidth={1} className="w-10 h-10" />,
-    title: "Wedding Suites",
-    desc: "Complete styling consultation for the groom and groomsmen."
+    icon: <Star strokeWidth={1} className="w-10 h-10" />,
+    title: "Facials & Skin Care",
+    desc: "Rejuvenating treatments to give you that perfect, natural glow."
   },
   {
     id: 4,
-    icon: <Shirt strokeWidth={1} className="w-10 h-10" />,
-    title: "Imported Fabrics",
-    desc: "Exclusive access to Loro Piana, Zegna, and Scabal textiles."
+    icon: <Sparkles strokeWidth={1} className="w-10 h-10" />,
+    title: "Manicure & Pedicure",
+    desc: "Luxury nail care services using premium, lasting products."
   }
 ];
 
 // --- CUSTOM LUXURY BUTTON ---
-const GoldButton = ({ children, variant = "outline", className = "" }) => {
+const GoldButton = ({ children, variant = "outline", className = "", ...props }) => {
   const baseStyle = "relative px-8 py-4 font-sans font-bold text-xs tracking-[0.25em] uppercase transition-all duration-500 overflow-hidden group border";
   
   // Define styles based on variant
@@ -76,7 +77,7 @@ const GoldButton = ({ children, variant = "outline", className = "" }) => {
     : "border-white text-white hover:text-black hover:bg-white border-opacity-30";
 
   return (
-    <button className={`${baseStyle} ${styles} ${className}`}>
+    <button className={`${baseStyle} ${styles} ${className}`} {...props}>
       {/* Background Fill Animation */}
       {variant === "outline" && (
         <span className="absolute inset-0 w-full h-full bg-[#C5A059] transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500 ease-out z-0"></span>
@@ -89,6 +90,7 @@ const GoldButton = ({ children, variant = "outline", className = "" }) => {
 };
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-white text-black font-sans selection:bg-[#C5A059] selection:text-white">
       
@@ -176,7 +178,11 @@ const Home = () => {
                         {slide.desc}
                       </p>
 
-                      <GoldButton variant="outline" className="text-xs">
+                      <GoldButton
+                        variant="outline"
+                        className="text-xs"
+                        onClick={() => navigate('/appointment')}
+                      >
                         Book Appointment
                       </GoldButton>
                     </motion.div>
@@ -203,7 +209,7 @@ const Home = () => {
               {/* Image Composition */}
               <div className="w-full lg:w-1/2 relative">
                 <div className="relative aspect-4/5 bg-[#F5F5F5]">
-                  <img src="/Home/tailor4.jpg" alt="Tailoring" className="w-full h-full object-cover" />
+                  <img src="/bridal.jpg" alt="Bridal Elegance" className="w-full h-full object-cover" />
                   
                   {/* Gold Frame Box */}
                   <div className="absolute -bottom-6 -right-6 w-full h-full border border-[#C5A059] -z-10 hidden md:block"></div>
@@ -213,29 +219,32 @@ const Home = () => {
               {/* Text Content */}
               <div className="w-full lg:w-1/2">
                 <span className="text-black font-bold tracking-[0.25em] text-xs uppercase mb-4 block">
-                  The Atelier
+                  The Salon
                 </span>
                 <h2 className="text-4xl md:text-5xl font-serif text-black mb-8 leading-tight">
-                  Precision in Every <br />
-                  <span className="italic text-[#C5A059]">Stitch & Seam.</span>
+                  Perfection in Every <br />
+                  <span className="italic text-[#C5A059]">Touch & Detail.</span>
                 </h2>
                 <p className="text-gray-600 font-sans text-lg leading-relaxed mb-8 text-justify">
-                  We don't just make suits; we engineer confidence. Located in the heart of Colombo, our heritage is built on the belief that a suit should not just fit your body, but your personality.
+                  We don't just style hair; we craft confidence. Located in the heart of Colombo, our salon is built on the belief that beauty is personal. Whether it's a fresh cut or a bridal makeover, we ensure you leave feeling radiant.
                 </p>
 
                 <div className="grid grid-cols-2 gap-8 mb-10">
                    <div>
-                      <h4 className="text-4xl font-serif text-[#C5A059]">25+</h4>
+                      <h4 className="text-4xl font-serif text-[#C5A059]">10+</h4>
                       <p className="text-xs font-bold uppercase tracking-widest text-black mt-2">Years of Excellence</p>
                    </div>
                    <div>
                       <h4 className="text-4xl font-serif text-[#C5A059]">5k+</h4>
-                      <p className="text-xs font-bold uppercase tracking-widest text-black mt-2">Bespoke Creations</p>
+                      <p className="text-xs font-bold uppercase tracking-widest text-black mt-2">Radiant Smiles</p>
                    </div>
                 </div>
 
-                <button className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.25em] text-black hover:text-[#C5A059] transition-colors">
-                  Explore Our Story 
+                <button 
+                  onClick={() => document.getElementById('services').scrollIntoView({ behavior: 'smooth' })}
+                  className="group flex items-center gap-4 text-xs font-bold uppercase tracking-[0.25em] text-black hover:text-[#C5A059] transition-colors"
+                >
+                  Explore Our Services 
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-300"/>
                 </button>
               </div>
@@ -245,16 +254,16 @@ const Home = () => {
         </section>
 
         {/* --- SERVICES GRID --- */}
-        <section className="py-24 bg-[#0a0a0a] text-white">
+        <section id="services" className="py-24 bg-[#fafafa] text-black">
           <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-6">
-               <h2 className="text-4xl md:text-5xl font-serif">Our Expertise</h2>
+            <div className="flex flex-col md:flex-row justify-between items-end mb-16 pb-6">
+               <h2 className="text-4xl md:text-5xl font-serif">Our Services</h2>
                <p className="text-[#C5A059] font-sans text-xs tracking-widest uppercase mt-4 md:mt-0">
-                  Full Service Tailoring
+                  Full Beauty Care
                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service, index) => (
                 <motion.div
                   key={service.id}
@@ -262,15 +271,15 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="bg-[#0a0a0a] p-10 hover:bg-[#111] transition-colors duration-500 group cursor-pointer"
+                  className="bg-white p-10 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 group cursor-pointer border border-gray-100 hover:-translate-y-2"
                 >
-                  <div className="mb-8 text-[#C5A059] group-hover:scale-110 transition-transform duration-500 origin-left">
+                  <div className="mb-8 text-[#C5A059] bg-[#C5A059]/10 w-20 h-20 rounded-full flex items-center justify-center group-hover:bg-[#C5A059] group-hover:text-white transition-colors duration-500">
                     {service.icon}
                   </div>
-                  <h3 className="text-xl font-serif text-white mb-4 group-hover:text-[#C5A059] transition-colors">
+                  <h3 className="text-xl font-serif text-black mb-4 group-hover:text-[#C5A059] transition-colors">
                     {service.title}
                   </h3>
-                  <p className="text-gray-400 font-sans text-sm leading-relaxed group-hover:text-gray-300">
+                  <p className="text-gray-500 font-sans text-sm leading-relaxed">
                     {service.desc}
                   </p>
                 </motion.div>
@@ -285,31 +294,35 @@ const Home = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                  <div className="order-2 lg:order-1">
                     <span className="text-[#C5A059] font-bold tracking-[0.25em] text-xs uppercase mb-4 block">
-                       Collections 2024
+                       Bridal Season 2024
                     </span>
                     <h2 className="text-4xl md:text-5xl font-serif text-black mb-6">
-                       The Modern Executive
+                       The Timeless Bride
                     </h2>
                     <p className="text-gray-600 text-lg mb-8 font-light">
-                       Sharp lines, structured shoulders, and fabrics that breathe. Designed for the Colombo climate, tailored for the global boardroom.
+                       Flawless makeup, intricate hair styling, and a glow that lasts. Designed for the Sri Lankan climate, tailored for your special day.
                     </p>
                     
                     <ul className="space-y-4 mb-10">
-                       {['Canvas Construction', 'Functional Buttonholes', 'Italian Wool'].map((item, i) => (
+                       {['HD Makeup', 'Traditional/Modern Styles', 'Premium Products'].map((item, i) => (
                           <li key={i} className="flex items-center gap-3 text-sm font-bold uppercase tracking-wider text-black">
                              <Star className="w-4 h-4 text-[#C5A059] fill-[#C5A059]" /> {item}
                           </li>
                        ))}
                     </ul>
 
-                    <GoldButton variant="outline" className="border-black text-black hover:text-white">
+                    <GoldButton 
+                        variant="outline" 
+                        className="border-black text-black hover:text-white"
+                        onClick={() => navigate('/collections')}
+                    >
                         <span className="group-hover:text-white">View Collection</span>
                         {/* Override default gold fill with black for this specific button if needed, or keep gold */}
                     </GoldButton>
                  </div>
 
                  <div className="order-1 lg:order-2 relative h-[600px] overflow-hidden group">
-                    <img src="/Home/tailor6.jpg" alt="Collection" className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
+                    <img src="https://images.unsplash.com/photo-1546193430-c2d207739ed7?q=80&w=1966&auto=format&fit=crop" alt="Bridal Collection" className="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-105" />
                     <div className="absolute inset-0 border-10 border-white/0 group-hover:border-white/20 transition-all duration-500 pointer-events-none"></div>
                  </div>
               </div>
@@ -322,14 +335,17 @@ const Home = () => {
             
             <div className="container mx-auto px-6 text-center relative z-10">
                <h2 className="text-4xl md:text-6xl font-serif text-white mb-8">
-                  Your Fitting Awaits
+                  Your Transformation Awaits
                </h2>
                <p className="text-white/90 font-sans text-lg max-w-2xl mx-auto mb-10">
-                  Experience the luxury of true bespoke tailoring. Visit our flagship store in Colombo 07.
+                  Experience the luxury of true beauty care. Visit our flagship salon in Colombo 07.
                </p>
                
-               <button className="bg-white text-[#C5A059] px-12 py-5 font-bold tracking-[0.25em] uppercase hover:bg-black hover:text-white transition-all duration-300">
-                  Book Consultation
+               <button 
+                  onClick={() => navigate('/appointment')}
+                  className="bg-white text-[#C5A059] px-12 py-5 font-bold tracking-[0.25em] uppercase hover:bg-black hover:text-white transition-all duration-300"
+               >
+                  Book Appointment
                </button>
             </div>
         </section>

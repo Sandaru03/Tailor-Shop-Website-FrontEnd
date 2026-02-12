@@ -20,7 +20,7 @@ const About = () => {
                 {/* --- HERO SECTION --- */}
                 <section className="relative h-[70vh] w-full flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
                     <div className="absolute inset-0 opacity-50">
-                        <img src="/Home/tailor5.jpg" alt="Tailoring Workshop" className="w-full h-full object-cover" />
+                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop" alt="Luxury Salon Interior" className="w-full h-full object-cover" />
                     </div>
                     <div className="absolute inset-0 bg-black/40"></div>
                  
@@ -47,7 +47,7 @@ const About = () => {
                             transition={{ duration: 0.6, delay: 0.4 }}
                             className="text-gray-300 text-lg md:text-xl font-light"
                         >
-                            More than just a tailor shop, we are custodians of a timeless craft.
+                            More than just a beauty salon, we are curators of your personal style and elegance.
                         </motion.p>
                     </div>
                 </section>
@@ -59,10 +59,10 @@ const About = () => {
                             <div className="w-full lg:w-1/2">
                                 <h2 className="text-4xl font-[Playfair_Display] mb-8">Our Philosophy</h2>
                                 <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                                    Founded in the heart of Colombo, our journey began with a simple belief: that true luxury lies in the details. For over two decades, we have dedicated ourselves to the mastery of bespoke tailoring, combining traditional techniques with contemporary sensibilities.
+                                    Founded in the heart of Colombo, our journey began with a simple belief: that true beauty lies in confidence. For over two decades, we have dedicated ourselves to the art of styling, combining modern techniques with personalized care.
                                 </p>
                                 <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                                    Every garment we create is a collaborative dialogue between the tailor and the wearer. We don't just measure the body; we measure the posture, the movement, and the personality.
+                                    Every treatment we offer is a collaborative dialogue between the stylist and the client. We don't just style your hair; we enhance your natural glow and personality.
                                 </p>
                                 <div className="grid grid-cols-2 gap-6">
                                     <div className="flex items-start gap-4">
@@ -75,17 +75,17 @@ const About = () => {
                                     <div className="flex items-start gap-4">
                                         <Award className="text-[#C5A059] shrink-0" size={24} />
                                         <div>
-                                            <h4 className="font-bold text-sm uppercase tracking-wider mb-2">Premium Quality</h4>
-                                            <p className="text-sm text-gray-500">Finest imported fabrics.</p>
+                                            <h4 className="font-bold text-sm uppercase tracking-wider mb-2">Premium Products</h4>
+                                            <p className="text-sm text-gray-500">Finest organic treatments.</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="w-full lg:w-1/2 relative">
                                 <div className="relative z-10">
-                                    <img src="/Home/tailor2.jpg" alt="Master Tailor" className="w-full h-auto shadow-xl" />
+                                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?q=80&w=2069&auto=format&fit=crop" alt="Expert Stylist" className="w-full h-auto shadow-xl" />
                                 </div>
-                                <div className="absolute top-10 -right-10 w-full h-full border-2 border-[#C5A059]/30 -z-0 hidden md:block"></div>
+                                <div className="absolute top-10 -right-10 w-full h-full border-2 border-[#C5A059]/30 z-0 hidden md:block"></div>
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@ const About = () => {
                             {stats.map((stat, index) => (
                                 <div key={index} className="p-6 border border-white/10 hover:border-[#C5A059]/50 transition-colors duration-500 bg-white/5 backdrop-blur-sm group">
                                     <h3 className="text-4xl md:text-5xl font-[Playfair_Display] text-[#C5A059] mb-2 group-hover:scale-110 transition-transform">{stat.value}</h3>
-                                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{stat.label}</p>
+                                    <p className="text-xs font-bold uppercase tracking-widest text-gray-400">{stat.label === "Master Tailors" ? "Expert Stylists" : stat.label === "Suits Crafted" ? "Weddings Styled" : stat.label}</p>
                                 </div>
                             ))}
                         </div>
@@ -114,9 +114,9 @@ const About = () => {
                         <Heart className="text-[#C5A059] mx-auto mb-6" size={32} />
                         <h2 className="text-3xl md:text-4xl font-[Playfair_Display] mb-8">Crafted With Passion</h2>
                         <p className="text-gray-600 mb-12">
-                            "To wear a suit made by us is to wear a piece of art. It is an experience that transforms not just how you look, but how you feel."
+                            "To visit our salon is to experience a transformation. It is a moment of care that enhances not just how you look, but how you feel."
                         </p>
-                        <img src="/Home/tailor7.jpg" alt="Team at work" className="w-full h-64 md:h-96 object-cover mb-8 filter grayscale hover:grayscale-0 transition-all duration-700" />
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=2069&auto=format&fit=crop" alt="Beauty Team" className="w-full h-64 md:h-96 object-cover mb-8 filter grayscale hover:grayscale-0 transition-all duration-700" />
                     </div>
                 </section>
 

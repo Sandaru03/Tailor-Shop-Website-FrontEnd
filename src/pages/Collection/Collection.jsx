@@ -6,32 +6,41 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, Filter, ChevronDown } from 'lucide-react';
 
 // --- DATA (Images Repeated as requested) ---
-const allCollections = [
-  { id: 1, image: '/Collections/cl1.jpg', title: 'The Royal Wedding', category: 'Ceremonial', year: '2024' },
-  { id: 2, image: '/Collections/cl2.jpg', title: 'Business Elite', category: 'Suits', year: '2024' },
-  { id: 3, image: '/Collections/cl3.png', title: 'Summer Linen', category: 'Casual', year: '2023' },
-  { id: 4, image: '/Collections/cl4.jpg', title: 'Midnight Tuxedo', category: 'Evening Wear', year: '2024' },
-  // Repeated Items for Grid Look
-  { id: 5, image: '/Collections/cl2.jpg', title: 'Charcoal Pinstripe', category: 'Suits', year: '2023' },
-  { id: 6, image: '/Collections/cl1.jpg', title: 'Heritage Nilame', category: 'Ceremonial', year: '2024' },
-  { id: 7, image: '/Collections/cl3.png', title: 'Resort Collection', category: 'Casual', year: '2024' },
-  { id: 8, image: '/Collections/cl4.jpg', title: 'Gala Black Tie', category: 'Evening Wear', year: '2023' },
-];
+// dynamic fetching implemented below
 
-const categories = ['All', 'Suits', 'Ceremonial', 'Casual', 'Evening Wear'];
+const categories = ['All', 'Hair & Skin Care', 'Ladies Fashion', 'Gents Fashion', 'Bridal & Party Wear', 'Accessories & Cosmetics'];
 
 const Collection = () => {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('search') || '';
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`);
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
+
   // Filter Logic
-  const filteredItems = allCollections.filter(item => {
-    const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
-    const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          item.category.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredItems = React.useMemo(() => {
+    return products.filter(item => {
+      const matchesCategory = activeCategory === 'All' || item.category === activeCategory;
+      const matchesSearch = item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            item.category.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    });
+  }, [products, activeCategory, searchQuery]);
 
   return (
     <div className="min-h-screen bg-white text-black font-sans selection:bg-[#C5A059] selection:text-white">
@@ -132,20 +141,25 @@ const Collection = () => {
                 className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-x-8 md:gap-y-16"
             >
                 <AnimatePresence>
-                    {filteredItems.map((item) => (
-                        <motion.div
-                            layout
-                            key={item.id}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9 }}
+                    {loading ? (
+                       <div className="col-span-full text-center py-20 text-gray-400">Loading collection...</div>
+                    ) : filteredItems.length === 0 ? (
+                       <div className="col-span-full text-center py-20 text-gray-400">No items found.</div>
+                    ) : (
+                        filteredItems.map((item) => (
+                            <motion.div
+                                layout
+                                key={item._id}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
                             transition={{ duration: 0.4 }}
                             className="group cursor-pointer"
                         >
                             {/* Image Container */}
                             <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
                                 <img 
-                                    src={item.image} 
+                                    src={`${import.meta.env.VITE_BACKEND_URL}/${item.image}`} 
                                     alt={item.title} 
                                     className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                                 />
@@ -181,7 +195,7 @@ const Collection = () => {
                                 </div>
                             </div>
                         </motion.div>
-                    ))}
+                    )))}
                 </AnimatePresence>
             </motion.div>
             

@@ -3,15 +3,19 @@ import Home from './pages/Home/Home';
 import OnlineMeasurements from './pages/OnlineMeasurements/OnlineMeasurements';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import AdminDashboard from './pages/Admin/AdminDashboard'; // Will implement next
+import AdminDashboard from './pages/Admin/AdminDashboard'; 
 
 import Collection from './pages/Collection/Collection';
 import About from './pages/About/About';
 import BookAppointment from './pages/Appointment/BookAppointment';
+import ScrollToTopButton from './components/ScrollToTopButton';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
+      <ScrollToTopButton />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/collections" element={<Collection />} />

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { Play, Trash, UserPlus, Shield, ShieldOff, Check, X } from 'lucide-react';
+import { Play, Trash, UserPlus, Shield, ShieldOff, Check, X, Pencil } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState('measurements');
@@ -13,6 +13,15 @@ const AdminDashboard = () => {
   const navigate = useNavigate();
   const [selectedVideos, setSelectedVideos] = useState(null); // { front, back }
   const [error, setError] = useState(null);
+  
+  // Product State
+  const [products, setProducts] = useState([]);
+  const [newProduct, setNewProduct] = useState({
+      title: '', category: 'Hair & Skin Care', year: new Date().getFullYear().toString()
+  });
+  const [productImage, setProductImage] = useState(null);
+  const [notification, setNotification] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   // Auth Check
   useEffect(() => {
@@ -33,7 +42,8 @@ const AdminDashboard = () => {
             await Promise.all([
                 fetchMeasurements(),
                 fetchUsers(),
-                fetchAppointments()
+                fetchAppointments(),
+                fetchProducts()
             ]);
         } catch (err) {
             setError("Failed to load data.");
@@ -81,6 +91,85 @@ const AdminDashboard = () => {
       }
   };
 
+  const fetchProducts = async () => {
+    try {
+        const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`);
+        const data = await res.json();
+        setProducts(data);
+    } catch (err) {
+        console.error("Failed to fetch products");
+    }
+  };
+
+  const handleAddOrUpdateProduct = async (e) => {
+      e.preventDefault();
+      // For adding, image is required. For updating, it's optional.
+      if (!editingProduct && !productImage) return alert("Please select an image");
+
+      const formData = new FormData();
+      formData.append('title', newProduct.title);
+      formData.append('category', newProduct.category);
+      formData.append('year', newProduct.year);
+      if (productImage) {
+        formData.append('image', productImage);
+      }
+
+      try {
+          let url = `${import.meta.env.VITE_BACKEND_URL}/products`;
+          let method = 'POST';
+
+          if (editingProduct) {
+             url = `${import.meta.env.VITE_BACKEND_URL}/products/${editingProduct._id}`;
+             method = 'PUT';
+          }
+
+          const res = await fetch(url, {
+              method: method,
+              body: formData // No Content-Type header for FormData
+          });
+          
+          if (res.ok) {
+              setNotification(editingProduct ? "Product updated successfully" : "Product added successfully");
+              setNewProduct({ title: '', category: 'Hair & Skin Care', year: new Date().getFullYear().toString() });
+              setProductImage(null);
+              setEditingProduct(null);
+              fetchProducts();
+              setTimeout(() => setNotification(null), 3000);
+          } else {
+              alert("Failed to save product");
+          }
+      } catch (err) {
+          console.error("Error saving product:", err);
+      }
+  };
+
+  const startEditing = (product) => {
+    setEditingProduct(product);
+    setNewProduct({
+        title: product.title,
+        category: product.category,
+        year: product.year
+    });
+    setProductImage(null); 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const cancelEditing = () => {
+    setEditingProduct(null);
+    setNewProduct({ title: '', category: 'Hair & Skin Care', year: new Date().getFullYear().toString() });
+    setProductImage(null);
+  };
+
+  const deleteProduct = async (id) => {
+      if(!confirm("Delete this product?")) return;
+      try {
+          await fetch(`${import.meta.env.VITE_BACKEND_URL}/products/${id}`, { method: 'DELETE' });
+          fetchProducts();
+      } catch (err) {
+          console.error("Failed to delete product");
+      }
+  };
+
   const deleteMeasurement = async (id) => {
       if(!confirm("Are you sure?")) return;
       try {
@@ -115,8 +204,13 @@ const AdminDashboard = () => {
       <main className="pt-32 pb-20 container mx-auto px-6">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
             <h1 className="text-3xl font-serif">Admin Dashboard</h1>
+            {notification && (
+                <div className="bg-green-100 text-green-700 px-4 py-2 rounded-md text-sm font-bold">
+                    {notification}
+                </div>
+            )}
             <div className="flex flex-wrap gap-2 bg-white p-1 rounded-lg border border-gray-200">
-                {['measurements', 'appointments', 'admins'].map(tab => (
+                {['measurements', 'appointments', 'products', 'admins'].map(tab => (
                     <button 
                         key={tab}
                         onClick={() => setActiveTab(tab)}
@@ -327,6 +421,132 @@ const AdminDashboard = () => {
                         </table>
                     </div>
                 )}
+
+                {/* PRODUCTS TAB */}
+                {activeTab === 'products' && (
+                    <div className="p-6">
+                        {/* Add Product Form */}
+                        <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-100 relative">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="text-lg font-bold">
+                                    {editingProduct ? 'Edit Product' : 'Add New Product'}
+                                </h3>
+                                {editingProduct && (
+                                    <button 
+                                        onClick={cancelEditing}
+                                        className="text-xs text-red-500 hover:text-red-700 underline"
+                                    >
+                                        Cancel Edit
+                                    </button>
+                                )}
+                            </div>
+                            <form onSubmit={handleAddOrUpdateProduct} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Title</label>
+                                    <input 
+                                        type="text" 
+                                        value={newProduct.title}
+                                        onChange={(e) => setNewProduct({...newProduct, title: e.target.value})}
+                                        className="w-full p-2 border border-gray-300 rounded text-sm"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Category</label>
+                                    <select 
+                                        value={newProduct.category}
+                                        onChange={(e) => setNewProduct({...newProduct, category: e.target.value})}
+                                        className="w-full p-2 border border-gray-300 rounded text-sm"
+                                    >
+                                        <option value="Hair & Skin Care">Hair & Skin Care</option>
+                                        <option value="Ladies Fashion">Ladies Fashion</option>
+                                        <option value="Gents Fashion">Gents Fashion</option>
+                                        <option value="Bridal & Party Wear">Bridal & Party Wear</option>
+                                        <option value="Accessories & Cosmetics">Accessories & Cosmetics</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Year</label>
+                                    <input 
+                                        type="text" 
+                                        value={newProduct.year}
+                                        onChange={(e) => setNewProduct({...newProduct, year: e.target.value})}
+                                        className="w-full p-2 border border-gray-300 rounded text-sm"
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-bold uppercase text-gray-400 mb-1">Image</label>
+                                    <input 
+                                        type="file" 
+                                        accept="image/*"
+                                        onChange={(e) => setProductImage(e.target.files[0])}
+                                        className="w-full text-xs"
+                                        required={!editingProduct}
+                                    />
+                                </div>
+                                <button 
+                                    type="submit"
+                                    className="bg-black text-white px-4 py-2 font-bold uppercase text-xs rounded hover:bg-[#C5A059] transition-colors h-10"
+                                >
+                                    {editingProduct ? 'Update' : 'Add Product'}
+                                </button>
+                            </form>
+                        </div>
+
+                        {/* Product List */}
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left">
+                                <thead className="bg-gray-50 border-b border-gray-100">
+                                    <tr>
+                                        <th className="p-4 text-xs font-bold uppercase text-gray-400">Image</th>
+                                        <th className="p-4 text-xs font-bold uppercase text-gray-400">Title</th>
+                                        <th className="p-4 text-xs font-bold uppercase text-gray-400">Category</th>
+                                        <th className="p-4 text-xs font-bold uppercase text-gray-400">Year</th>
+                                        <th className="p-4 text-xs font-bold uppercase text-gray-400 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    {products.map(product => (
+                                        <tr key={product._id} className="hover:bg-gray-50 transition-colors">
+                                            <td className="p-4">
+                                                <img 
+                                                    src={`${import.meta.env.VITE_BACKEND_URL}/${product.image}`} 
+                                                    alt={product.title} 
+                                                    className="w-12 h-16 object-cover rounded"
+                                                />
+                                            </td>
+                                            <td className="p-4 font-bold">{product.title}</td>
+                                            <td className="p-4 text-sm text-gray-500">{product.category}</td>
+                                            <td className="p-4 text-sm text-gray-500">{product.year}</td>
+                                            <td className="p-4 text-right flex justify-end gap-2">
+                                                <button 
+                                                    onClick={() => startEditing(product)}
+                                                    className="text-gray-400 hover:text-[#C5A059] p-2"
+                                                    title="Edit"
+                                                >
+                                                    <Pencil size={16} />
+                                                </button>
+                                                <button  
+                                                    onClick={() => deleteProduct(product._id)}
+                                                    className="text-gray-400 hover:text-red-500 p-2"
+                                                >
+                                                    <Trash size={16} />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    {products.length === 0 && (
+                                        <tr>
+                                            <td colSpan="5" className="p-8 text-center text-gray-400">No products added yet.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                )}
+
             </div>
         )}
       </main>
