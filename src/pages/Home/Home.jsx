@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { motion } from 'framer-motion';
 import { 
-  ArrowRight, Scissors, Sparkles, Palette, Crown, Star 
+  ArrowRight, Scissors, Gem, Palette, Crown, Star 
 } from 'lucide-react';
 
 import Navbar from '../../components/Navbar';
@@ -61,7 +61,7 @@ const services = [
   },
   {
     id: 4,
-    icon: <Sparkles strokeWidth={1} className="w-10 h-10" />,
+    icon: <Gem strokeWidth={1} className="w-10 h-10" />,
     title: "Manicure & Pedicure",
     desc: "Luxury nail care services using premium, lasting products."
   }
