@@ -116,7 +116,7 @@ const About = () => {
                         <p className="text-gray-600 mb-12">
                             "To visit our salon is to experience a transformation. It is a moment of care that enhances not just how you look, but how you feel."
                         </p>
-                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?q=80&w=2069&auto=format&fit=crop" alt="Beauty Team" className="w-full h-64 md:h-96 object-cover mb-8 filter grayscale hover:grayscale-0 transition-all duration-700" />
+                        <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?q=80&w=2070&auto=format&fit=crop" alt="Fashion Design Team" className="w-full h-64 md:h-96 object-cover mb-8 filter grayscale hover:grayscale-0 transition-all duration-700" />
                     </div>
                 </section>
 
