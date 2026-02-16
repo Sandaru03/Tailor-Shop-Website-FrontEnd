@@ -511,7 +511,7 @@ const AdminDashboard = () => {
                                         <tr key={product.id} className="hover:bg-gray-50 transition-colors">
                                             <td className="p-4">
                                                 <img 
-                                                    src={`${import.meta.env.VITE_BACKEND_URL}/${product.image}`} 
+                                                    src={product.image.startsWith('http') ? product.image : `${import.meta.env.VITE_BACKEND_URL}/${product.image}`} 
                                                     alt={product.title} 
                                                     className="w-12 h-16 object-cover rounded"
                                                 />

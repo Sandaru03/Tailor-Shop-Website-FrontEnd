@@ -68,7 +68,7 @@ const Collection = () => {
              </div>
              <div className="absolute inset-0 bg-linear-to-t from-black via-black/40 to-transparent"></div>
              
-             <div className="relative z-10 container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-end gap-8">
+             <div className="relative z-10 container mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-8 text-center md:text-left">
                 <div>
                    <motion.span 
                       initial={{ y: 20, opacity: 0 }}
@@ -159,7 +159,7 @@ const Collection = () => {
                             {/* Image Container */}
                             <div className="relative aspect-3/4 overflow-hidden mb-6 bg-gray-100">
                                 <img 
-                                    src={`${import.meta.env.VITE_BACKEND_URL}/${item.image}`} 
+                                    src={item.image.startsWith('http') ? item.image : `${import.meta.env.VITE_BACKEND_URL}/${item.image}`} 
                                     alt={item.title} 
                                     className="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                                 />

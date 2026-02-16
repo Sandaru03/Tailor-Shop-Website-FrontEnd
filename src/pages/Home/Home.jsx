@@ -256,7 +256,7 @@ const Home = () => {
         {/* --- SERVICES GRID --- */}
         <section id="services" className="py-24 bg-[#fafafa] text-black">
           <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-end mb-16 pb-6">
+            <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-16 pb-6 text-center md:text-left">
                <h2 className="text-4xl md:text-5xl font-serif">Our Services</h2>
                <p className="text-[#C5A059] font-sans text-xs tracking-widest uppercase mt-4 md:mt-0">
                   Full Beauty Care
