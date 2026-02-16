@@ -119,7 +119,7 @@ const AdminDashboard = () => {
           let method = 'POST';
 
           if (editingProduct) {
-             url = `${import.meta.env.VITE_BACKEND_URL}/products/${editingProduct._id}`;
+             url = `${import.meta.env.VITE_BACKEND_URL}/products/${editingProduct.id}`;
              method = 'PUT';
           }
 
@@ -285,7 +285,7 @@ const AdminDashboard = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {measurements.map(item => (
-                                    <tr key={item._id} className="hover:bg-gray-50 transition-colors">
+                                    <tr key={item.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="p-4 text-sm text-gray-500">{new Date(item.createdAt).toLocaleDateString()}</td>
                                         <td className="p-4 font-bold">{item.name}</td>
                                         <td className="p-4 text-sm text-gray-500">{item.phone}</td>
@@ -314,7 +314,7 @@ const AdminDashboard = () => {
                                         </td>
                                         <td className="p-4 text-right">
                                             <button 
-                                                onClick={() => deleteMeasurement(item._id)}
+                                                onClick={() => deleteMeasurement(item.id)}
                                                 className="text-gray-400 hover:text-red-500 p-2"
                                             >
                                                 <Trash size={16} />
@@ -347,7 +347,7 @@ const AdminDashboard = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {appointments.map(apt => (
-                                    <tr key={apt._id} className="hover:bg-gray-50 transition-colors">
+                                    <tr key={apt.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="p-4 font-bold">
                                             <div className="text-sm">{apt.date}</div>
                                             <div className="text-[#C5A059] text-xs">{apt.time}</div>
@@ -388,7 +388,7 @@ const AdminDashboard = () => {
                             </thead>
                             <tbody className="divide-y divide-gray-100">
                                 {users.map(user => (
-                                    <tr key={user._id} className="hover:bg-gray-50 transition-colors">
+                                    <tr key={user.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="p-4 font-bold">{user.firstName} {user.lastName}</td>
                                         <td className="p-4 text-sm text-gray-500">{user.email}</td>
                                         <td className="p-4">
@@ -399,7 +399,7 @@ const AdminDashboard = () => {
                                         <td className="p-4 text-right">
                                             {user.role === 'admin' ? (
                                                 <button 
-                                                    onClick={() => toggleAdminRole(user._id, 'admin')}
+                                                    onClick={() => toggleAdminRole(user.id, 'admin')}
                                                     className="flex items-center gap-2 ml-auto text-red-500 hover:bg-red-50 px-3 py-1 rounded text-xs font-bold uppercase transition-colors"
                                                     title="Remove Admin Access"
                                                 >
@@ -407,7 +407,7 @@ const AdminDashboard = () => {
                                                 </button>
                                             ) : (
                                                 <button 
-                                                    onClick={() => toggleAdminRole(user._id, 'customer')}
+                                                    onClick={() => toggleAdminRole(user.id, 'customer')}
                                                     className="flex items-center gap-2 ml-auto text-green-600 hover:bg-green-50 px-3 py-1 rounded text-xs font-bold uppercase transition-colors"
                                                     title="Make Admin"
                                                 >
@@ -508,7 +508,7 @@ const AdminDashboard = () => {
                                 </thead>
                                 <tbody className="divide-y divide-gray-100">
                                     {products.map(product => (
-                                        <tr key={product._id} className="hover:bg-gray-50 transition-colors">
+                                        <tr key={product.id} className="hover:bg-gray-50 transition-colors">
                                             <td className="p-4">
                                                 <img 
                                                     src={`${import.meta.env.VITE_BACKEND_URL}/${product.image}`} 
@@ -528,7 +528,7 @@ const AdminDashboard = () => {
                                                     <Pencil size={16} />
                                                 </button>
                                                 <button  
-                                                    onClick={() => deleteProduct(product._id)}
+                                                    onClick={() => deleteProduct(product.id)}
                                                     className="text-gray-400 hover:text-red-500 p-2"
                                                 >
                                                     <Trash size={16} />
